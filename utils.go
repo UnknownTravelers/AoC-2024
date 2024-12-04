@@ -1,6 +1,7 @@
 package main
 
 import (
+	"regexp"
 	"slices"
 	"strconv"
 	"strings"
@@ -45,4 +46,19 @@ func Count[T comparable](input []T) map[T]int {
 		out[v]++
 	}
 	return out
+}
+
+// ParseRegex return a list of all match with
+func ParseRegex(str string, reg *regexp.Regexp) []map[string]string {
+	matches := reg.FindAllStringSubmatch(str, len(str)+1)
+	result := make([]map[string]string, len(matches))
+	for idx, match := range matches {
+		result[idx] = make(map[string]string)
+		for i, name := range reg.SubexpNames() {
+			if i != 0 && name != "" {
+				result[idx][name] = match[i]
+			}
+		}
+	}
+	return result
 }
