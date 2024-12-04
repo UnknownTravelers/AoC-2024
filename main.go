@@ -37,6 +37,8 @@ func run(day string, step string) error {
 	switch day {
 	case "1":
 		return run1(bx, step)
+	case "2":
+		return run2(bx, step)
 	}
 	return nil
 }
