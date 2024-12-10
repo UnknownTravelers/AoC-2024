@@ -15,6 +15,15 @@ func parseInt(str string) int {
 	return v
 }
 
+func parseInts(str string, sep string) []int {
+	split := strings.Split(str, sep)
+	out := make([]int, len(split))
+	for idx, s := range split {
+		out[idx] = parseInt(s)
+	}
+	return out
+}
+
 // splitNewLine and remove last empty line
 func splitNewLine(input []byte) []string {
 	lines := strings.Split(string(input), "\n")
