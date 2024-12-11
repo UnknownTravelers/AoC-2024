@@ -27,7 +27,7 @@ func Test_parseMap(t *testing.T) {
 					{Free, Obstacle, Free},
 					{Free, Free, Free},
 				},
-				playerPos:       Pos{X: 0, Y: 1},
+				playerPos:       Vec2D{X: 0, Y: 1},
 				playerDirection: North,
 			},
 		},

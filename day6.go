@@ -28,15 +28,10 @@ const (
 	West
 )
 
-// Pos in a 2D plane
-type Pos struct {
-	X, Y int
-}
-
 // Board Tile 2d plane
 type Board struct {
 	tiles           [][]Tile
-	playerPos       Pos
+	playerPos       Vec2D
 	playerDirection Direction
 }
 
@@ -50,7 +45,7 @@ func run6(input []byte, step string) error {
 }
 
 func run6a(board Board) error {
-	visitedTiles := map[Pos]bool{board.playerPos: true}
+	visitedTiles := map[Vec2D]bool{board.playerPos: true}
 	for {
 		if board.Step() {
 			break
@@ -72,7 +67,7 @@ func run6a(board Board) error {
 func run6b(board Board) error {
 	sum := 0
 	originalPos := board.playerPos
-	visitedTiles := map[Pos]bool{originalPos: true}
+	visitedTiles := map[Vec2D]bool{originalPos: true}
 	for {
 		if board.Step() {
 			break
@@ -132,7 +127,7 @@ func parseDay6(input []byte) Board {
 		case '^':
 			curRow = append(curRow, Free)
 			board.playerDirection = North
-			board.playerPos = Pos{Y: len(tiles), X: len(curRow) - 1}
+			board.playerPos = Vec2D{Y: len(tiles), X: len(curRow) - 1}
 		}
 	}
 	board.tiles = tiles
@@ -143,7 +138,7 @@ func parseDay6(input []byte) Board {
 func (b *Board) Step() bool {
 	switch b.playerDirection {
 	case North:
-		next := Pos{b.playerPos.X, b.playerPos.Y - 1}
+		next := Vec2D{b.playerPos.X, b.playerPos.Y - 1}
 		if next.Y < 0 {
 			return true
 		}
@@ -153,7 +148,7 @@ func (b *Board) Step() bool {
 			b.playerDirection = East
 		}
 	case East:
-		next := Pos{b.playerPos.X + 1, b.playerPos.Y}
+		next := Vec2D{b.playerPos.X + 1, b.playerPos.Y}
 		if next.X >= len(b.tiles[next.Y]) {
 			return true
 		}
@@ -163,7 +158,7 @@ func (b *Board) Step() bool {
 			b.playerDirection = South
 		}
 	case South:
-		next := Pos{b.playerPos.X, b.playerPos.Y + 1}
+		next := Vec2D{b.playerPos.X, b.playerPos.Y + 1}
 		if next.Y >= len(b.tiles) {
 			return true
 		}
@@ -173,7 +168,7 @@ func (b *Board) Step() bool {
 			b.playerDirection = West
 		}
 	case West:
-		next := Pos{b.playerPos.X - 1, b.playerPos.Y}
+		next := Vec2D{b.playerPos.X - 1, b.playerPos.Y}
 		if next.X < 0 {
 			return true
 		}
@@ -189,7 +184,7 @@ func (b *Board) Step() bool {
 // Run the board position. If stuck in a loop, return true
 func (b *Board) Run() bool {
 	type CompletePos struct {
-		Pos Pos
+		Pos Vec2D
 		Dir Direction
 	}
 	visitedTiles := map[CompletePos]bool{}
@@ -205,11 +200,11 @@ func (b *Board) Run() bool {
 }
 
 // Print display board with player path
-func (b *Board) Print(visitedTiles map[Pos]bool) {
+func (b *Board) Print(visitedTiles map[Vec2D]bool) {
 	for i, line := range b.tiles {
 		for j, tile := range line {
 			if tile == Free {
-				if v, ok := visitedTiles[Pos{X: j, Y: i}]; ok && v {
+				if v, ok := visitedTiles[Vec2D{X: j, Y: i}]; ok && v {
 					fmt.Print("X")
 				} else {
 					fmt.Print(".")
