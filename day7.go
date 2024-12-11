@@ -11,6 +11,7 @@ var regEq = regexp.MustCompile(`^(?P<total>\d+): (?P<components>\d+(?: \d+?)*)$`
 // Op operation
 type Op func(int, int) int
 
+// Equation total and sub values
 type Equation struct {
 	Total     int
 	Component []int
