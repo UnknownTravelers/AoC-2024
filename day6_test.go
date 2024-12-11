@@ -34,7 +34,7 @@ func Test_parseMap(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := parseMap(tt.input)
+			got := parseDay6(tt.input)
 			require.Equal(t, tt.want, got)
 		})
 	}
@@ -48,7 +48,7 @@ func TestBoard_Run(t *testing.T) {
 	}{
 		{
 			name: "Loop",
-			b: parseMap([]byte{
+			b: parseDay6([]byte{
 				'.', '#', '.', '.', '\n',
 				'#', '^', '.', '#', '\n',
 				'.', '.', '#', '.', '\n',
@@ -58,7 +58,7 @@ func TestBoard_Run(t *testing.T) {
 		},
 		{
 			name: "Not Loop",
-			b: parseMap([]byte{
+			b: parseDay6([]byte{
 				'#', '.', '.', '\n',
 				'^', '.', '#', '\n',
 				'.', '#', '.', '\n',

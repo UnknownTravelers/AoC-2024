@@ -41,7 +41,7 @@ type Board struct {
 }
 
 func run6(input []byte, step string) error {
-	board := parseMap(input)
+	board := parseDay6(input)
 
 	if step == "a" {
 		return run6a(board)
@@ -115,7 +115,7 @@ func run6b(board Board) error {
 	return nil
 }
 
-func parseMap(input []byte) Board {
+func parseDay6(input []byte) Board {
 	board := Board{}
 	tiles := make([][]Tile, 0)
 
