@@ -49,6 +49,8 @@ func run(day string, step string) error {
 		return run6(bx, step)
 	case "7":
 		return run7(bx, step)
+	case "8":
+		return run8(bx, step)
 	}
 	return nil
 }
