@@ -6,12 +6,15 @@ import (
 	"strings"
 )
 
+// Rules of page ordering
 type Rules map[int][]int
 
+// Document is a list of pages to print
 type Document struct {
 	Pages []int
 }
 
+// Pair is a pair of pages
 type Pair [2]int
 
 func run5(input []byte, step string) error {
